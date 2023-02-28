@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.8)
+cmake_minimum_required(VERSION 3.25)
 
 project(boost_example_project)
 
@@ -10,50 +10,22 @@ find_package(
   Boost
   ${BOOST_VERSION_TO_USE} EXACT REQUIRED
   COMPONENTS
-  atomic
   chrono
-  container
   context
-  coroutine
-  date_time
-  exception
-  fiber
   filesystem
   graph
   graph_parallel
-  headers
   iostreams
   locale
   log
   log_setup
-  math_c99
-  math_c99f
-  math_c99l
-  math_tr1
-  math_tr1f
-  math_tr1l
   mpi
-  mpi_python
-  nowide
-  numpy
-  prg_exec_monitor
   program_options
-  python
-  random
   regex
   serialization
-  stacktrace_addr2line
-  stacktrace_backtrace
-  stacktrace_basic
-  stacktrace_noop
-  system
-  test_exec_monitor
   thread
   timer
-  type_erasure
-  unit_test_framework
-  wave
-  wserialization)
+  wave)
 
 add_executable(
   application
