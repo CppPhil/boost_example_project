@@ -38,8 +38,36 @@ if (-Not (Test-Path -Path $boost_directory_path)) {
   Write-Output "Built Boost $boost_version."
 
   Pop-Location
-  exit 0
+} else {
+  Write-Output "$boost_directory_path already exists. Assuming it contains a valid installation of Boost $boost_version."
 }
 
-Write-Output "$boost_directory_path already exists. Assuming it contains a valid installation of Boost $boost_version."
+$build_dir = "$PSScriptRoot\build"
+
+if (-Not (Test-Path -Path $build_dir)) {
+  mkdir -p $build_dir
+}
+
+$cpu_count = (Get-CimInstance Win32_ComputerSystem).NumberOfLogicalProcessors
+
+Set-Location $build_dir
+cmake -DCMAKE_BUILD_TYPE=Debug -DBOOST_VERSION_TO_USE="$boost_version" -DBOOST_ROOT="$boost_root_path" ..
+cmake --build . --config Debug --parallel $cpu_count
+
+if (-Not ($LASTEXITCODE -eq "0")) {
+  Write-Output "cmake --build for Debug mode failed!"
+  Pop-Location
+  exit 1
+}
+
+cmake -DCMAKE_BUILD_TYPE=Release -DBOOST_VERSION_TO_USE="$boost_version" -DBOOST_ROOT="$boost_root_path" ..
+cmake --build . --config Debug --parallel $cpu_count
+
+if (-Not ($LASTEXITCODE -eq "0")) {
+  Write-Output "cmake --build for Release mode failed!"
+  Pop-Location
+  exit 1
+}
+
+Pop-Location
 exit 0
