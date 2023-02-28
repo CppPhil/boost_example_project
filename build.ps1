@@ -51,8 +51,8 @@ if (-Not (Test-Path -Path $build_dir)) {
 
 $cpu_count = (Get-CimInstance Win32_ComputerSystem).NumberOfLogicalProcessors
 
-Set-Location $build_dir
-cmake -DCMAKE_BUILD_TYPE=Debug -DBOOST_VERSION_TO_USE="$boost_version" -DBOOST_ROOT="$boost_root_path" -DBOOST_INCLUDEDIR="$boost_directory_path" -DBOOST_LIBRARYDIR="$boost_library_path" ..
+Push-Location $build_dir
+cmake -DCMAKE_BUILD_TYPE=Debug -DBOOST_VERSION_TO_USE="$boost_version" -DBOOST_ROOT="$boost_directory_path" -DBOOST_INCLUDEDIR="$boost_directory_path" -DBOOST_LIBRARYDIR="$boost_library_path" ..
 cmake --build . --config Debug --parallel $cpu_count
 
 if (-Not ($LASTEXITCODE -eq "0")) {
@@ -61,7 +61,7 @@ if (-Not ($LASTEXITCODE -eq "0")) {
   exit 1
 }
 
-cmake -DCMAKE_BUILD_TYPE=Release -DBOOST_VERSION_TO_USE="$boost_version" -DBOOST_ROOT="$boost_root_path" -DBOOST_INCLUDEDIR="$boost_directory_path" -DBOOST_LIBRARYDIR="$boost_library_path" ..
+cmake -DCMAKE_BUILD_TYPE=Release -DBOOST_VERSION_TO_USE="$boost_version" -DBOOST_ROOT="$boost_directory_path" -DBOOST_INCLUDEDIR="$boost_directory_path" -DBOOST_LIBRARYDIR="$boost_library_path" ..
 cmake --build . --config Debug --parallel $cpu_count
 
 if (-Not ($LASTEXITCODE -eq "0")) {
