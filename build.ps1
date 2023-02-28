@@ -61,8 +61,11 @@ if (-Not ($LASTEXITCODE -eq "0")) {
   exit 1
 }
 
+Pop-Location
+Push-Location $build_dir
+
 cmake -DCMAKE_BUILD_TYPE=Release -DBOOST_VERSION_TO_USE="$boost_version" -DBOOST_ROOT="$boost_directory_path" -DBOOST_INCLUDEDIR="$boost_directory_path" -DBOOST_LIBRARYDIR="$boost_library_path" ..
-cmake --build . --config Debug --parallel $cpu_count
+cmake --build . --config Release --parallel $cpu_count
 
 if (-Not ($LASTEXITCODE -eq "0")) {
   Write-Output "cmake --build for Release mode failed!"
