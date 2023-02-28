@@ -1,0 +1,6 @@
+Check if C:\boost\$version exists.
+If not create the directory -p and
+    download the archive
+    unzip it 
+    build it
+    
