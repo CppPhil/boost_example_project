@@ -1,5 +1,5 @@
 # Update the version as needed.
-$boost_version = '1.81.0'
+$boost_version = '1.82.0'
 
 $drive = 'C:'
 $directory_name = 'boost_' + $boost_version.Replace('.', '_')
