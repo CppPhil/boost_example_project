@@ -1,2 +1,6 @@
 # build directory
 build
+
+# build output
+build_output.txt
+
